@@ -1,9 +1,11 @@
 import React from 'react'
 import { Card } from './Card'
+import { ButtonLink } from '../ButtonLink'
 
 export const ProductsCards = () => {
   return (
-    <section className='flex w-full flex-col items-center justify-center gap-2 p-2'>
+    <section 
+    className='flex w-full flex-col items-center justify-center gap-2 p-2'>
             <form>         
               <input 
               type="text" 
@@ -18,6 +20,9 @@ export const ProductsCards = () => {
                 <Card />
                 <Card />
             </article>
+            <div>
+              <ButtonLink content='Más Productos'/>
+            </div>
      </section>
   )
 }

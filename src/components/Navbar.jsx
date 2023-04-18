@@ -1,31 +1,21 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
+import { useAuth } from '../hooks';
 const links = [
     {
-        name: 'INICIO',
-        href: '#inicio',
-    },
-    {
         name: 'DESTACADOS',
-        href: '#destacados',
+        href: '/#destacados',
     },
     {
         name: 'PRODUCTOS',
-        href: '#productos',
+        href: '/#productos',
     },
-    {
-        name: 'CONTACTO',
-        href: '#contacto',
-    },
-    {
-        name: 'INICIAR SESIÓN',
-        href: 'login',
-    }
 ]
 
 export default function Navbar() {
 
   const [menu, setMenu] = useState(false);
+  const {auth} = useAuth();
 
   const toggleMenu = () => {
         setMenu(!menu);
@@ -39,17 +29,43 @@ export default function Navbar() {
                 <nav aria-label="Site Nav">
                     <ul className={`${menu && 'flex-col'} flex md:flex-row items-center gap-6 text-sm`}
                     >
+                        <li onClick={toggleMenu}>
+                            <Link
+                                className="text-gray-500 hover:text-primary-100"
+                                to='/'
+                            >
+                                INICIO
+                            </Link>
+                        </li>
                         {
                                 links.map((link, index) => (
-                                    <li key={index}>
-                                        <Link
+                                    <li key={index} onClick={toggleMenu}>
+                                        <a
                                             className="text-gray-500 hover:text-primary-100"
-                                            to={link.href}
+                                            href={link.href}
                                         >
                                             {link.name}
-                                        </Link>
+                                        </a>
                                     </li>
                                 ))
+                        }
+                        <li onClick={toggleMenu}>
+                            <Link
+                                className="text-gray-500 hover:text-primary-100"
+                                to='login'
+                            >
+                                INICIAR SESIÓN
+                            </Link>
+                        </li>
+                        {
+                            auth.user && <li onClick={toggleMenu}>
+                            <Link
+                                className="text-gray-500 hover:text-primary-100"
+                                to='admin'
+                            >
+                                ADMIN
+                            </Link>
+                        </li>
                         }
                     </ul>
                 </nav>

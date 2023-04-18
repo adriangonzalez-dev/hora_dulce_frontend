@@ -5,5 +5,9 @@
 @tailwind utilities;
 
 :root {
-  --swiper-theme-color: #F23872 !important;
+  --swiper-theme-color: #62BAAC !important;
+}
+
+*{
+  scroll-behavior: smooth;
 }
