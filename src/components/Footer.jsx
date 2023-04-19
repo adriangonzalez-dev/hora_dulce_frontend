@@ -3,7 +3,7 @@ import logo from '../assets/logo.png'
 
 export const Footer = () => {
   return (
-    <footer className="footer footer-center p-10 relative">
+    <footer className="footer footer-center p-10 relative bottom-0">
         <div>
             <Link to='/'>
                 <img src={logo} alt="logo" loading='lazy' className='w-10 h-10'/>

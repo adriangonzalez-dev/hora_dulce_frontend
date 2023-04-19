@@ -1,49 +1,19 @@
+import dbProducts from '../../assets/db/productos.json'
+
 export const initialState = {
-    products: [],
+    data: dbProducts,
     product: null,
-    isLoading: false,
+    isLoading: true,
     error: null
 }
 
 export const productsReducer = (state, action) => {
     switch (action.type) {
-        case 'GET_PRODUCTS_REQUEST':
+        case 'GET_PRODUCTS':
             return {
                 ...state,
-                isLoading: true
-            }
-        case 'GET_PRODUCTS_SUCCESS':
-            return {
-                ...state,
-                products: action.payload,
-                isLoading: false,
-                error: null
-            }
-        case 'GET_PRODUCTS_FAILURE':
-            return {
-                ...state,
-                products: [],
-                isLoading: false,
-                error: action.payload
-            }
-        case 'GET_PRODUCT_REQUEST':
-            return {
-                ...state,
-                isLoading: true
-            }
-        case 'GET_PRODUCT_SUCCESS':
-            return {
-                ...state,
-                product: action.payload,
-                isLoading: false,
-                error: null
-            }
-        case 'GET_PRODUCT_FAILURE':
-            return {
-                ...state,
-                product: null,
-                isLoading: false,
-                error: action.payload
+                data: action.payload,
+                isLoading: false
             }
         default:
             return state

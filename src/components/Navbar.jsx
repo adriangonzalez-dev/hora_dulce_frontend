@@ -25,7 +25,7 @@ export default function Navbar() {
 
   return (
       <>
-            <div className={`${classMenuNav} md:static md:p-0 md:w-auto md:block duration-200`}>
+            <div className={`${classMenuNav} md:static md:p-0 md:w-auto md:block duration-200 z-10`}>
                 <nav aria-label="Site Nav">
                     <ul className={`${menu && 'flex-col'} flex md:flex-row items-center gap-6 text-sm`}
                     >
@@ -58,13 +58,12 @@ export default function Navbar() {
                             </Link>
                         </li>
                         {
-                            auth.user && <li onClick={toggleMenu}>
-                            <Link
-                                className="text-gray-500 hover:text-primary-100"
-                                to='admin'
-                            >
-                                ADMIN
-                            </Link>
+                            auth.user && <li className="dropdown text-gray-500">
+                                <label tabIndex={0} className="btn m-1">ADMIN</label>
+                                <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                    <li onClick={toggleMenu}><Link to='admin/productos'>Productos</Link></li>
+                                    <li onClick={toggleMenu}><Link>Cerrar sesión</Link></li>
+                                </ul>
                         </li>
                         }
                     </ul>

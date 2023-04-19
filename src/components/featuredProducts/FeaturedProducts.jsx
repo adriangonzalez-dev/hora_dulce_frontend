@@ -1,14 +1,17 @@
 import React from 'react'
 import { CardFeatured } from './CardFeatured'
 import {Swiper, SwiperSlide} from 'swiper/react'
-import { Autoplay, Pagination, Navigation } from "swiper";
+import { Autoplay, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useProducts } from '../../hooks';
 
 export const FeaturedProducts = () => {
+  const {products} = useProducts()
   return (
-    <Swiper
+    <div className='w-full'>
+      <Swiper
         slidesPerView={3}
         spaceBetween={40}
         centeredSlides={true}
@@ -44,14 +47,12 @@ export const FeaturedProducts = () => {
         modules={[Autoplay, Navigation]}
         className="mySwiper w-full h-fit p-2 overflow-hidden"
       >
-        <SwiperSlide><CardFeatured/></SwiperSlide>
-        <SwiperSlide><CardFeatured/></SwiperSlide>
-        <SwiperSlide><CardFeatured/></SwiperSlide>
-        <SwiperSlide><CardFeatured/></SwiperSlide>
-        <SwiperSlide><CardFeatured/></SwiperSlide>
-        <SwiperSlide><CardFeatured/></SwiperSlide>
-        <SwiperSlide><CardFeatured/></SwiperSlide>
-        <SwiperSlide><CardFeatured/></SwiperSlide>
+        {
+          products.data.map((product) => {
+            if(product.outstanding)return <SwiperSlide><CardFeatured image={product.image}/></SwiperSlide>
+          })
+        }
       </Swiper>
+    </div>
   )
 }

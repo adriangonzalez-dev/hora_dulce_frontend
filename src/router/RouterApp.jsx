@@ -3,6 +3,7 @@ import { Home, Login } from '../pages'
 import { Root } from '../layout/Root'
 import { PrivateRouter } from './PrivateRouter'
 import { ProtectedRoute } from './ProtectedRoute'
+import { ErrorPage } from '../pages/ErrorPage'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +17,7 @@ export const router = createBrowserRouter(
           </ProtectedRoute>
         }>
         </Route>
+        <Route path='*' element={<ErrorPage/>} />
       </Route>
 
     </>

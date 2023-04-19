@@ -1,16 +1,18 @@
 import React from 'react'
-import prueba from '../../assets/images/imagen-prueba.jpg'
 
-export const Card = () => {
+export const Card = ({product}) => {
   return (
-      <div className="flex flex-col rounded items-center justify-center gap-2 w-36 sm:w-60 shadow-lg">
-          <figure className='w-full rounded-t'>
-            <img src={prueba} alt="Shoes" loading='lazy' className='object-cover rounded-t'/>
+      <div className="flex flex-col rounded items-center 
+      justify-center gap-2 w-36 sm:w-60 shadow-lg">
+          <figure className='w-36 h-36 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-t'>
+            <img src={product.image} alt="Shoes" 
+            loading='lazy' 
+            className='w-full h-full object-cover rounded-t'/>
           </figure>
           <div className="w-full flex flex-col items-center justify-center p-1">
               <div className='text-gray-700 w-full text-start'>
-                <p className='font-semibold text-md'>$99,99</p>
-                <h2 className=' text-sm'>Shoes!</h2>
+                <p className='font-semibold text-md'>${product.price}</p>
+                <h2 className='text-sm truncate'>{product.title}!</h2>
               </div>
               <div className="mt-1">
                 <button 
