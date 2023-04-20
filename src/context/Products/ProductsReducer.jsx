@@ -1,8 +1,6 @@
-import dbProducts from '../../assets/db/productos.json'
 
 export const initialState = {
-    data: dbProducts,
-    product: null,
+    data: [],
     isLoading: true,
     error: null
 }
@@ -14,6 +12,21 @@ export const productsReducer = (state, action) => {
                 ...state,
                 data: action.payload,
                 isLoading: false
+            }
+        case 'ADD_PRODUCT':
+            return {
+                ...state,
+                data: [...state.data, action.payload]
+            }
+        case 'UPDATE_PRODUCT':
+            return {
+                ...state,
+                data: state.data.map(product => product._id === action.payload._id ? action.payload : product)
+            }
+        case 'DELETE_PRODUCT':
+            return {
+                ...state,
+                data: state.data.filter(product => product._id !== action.payload)
             }
         default:
             return state

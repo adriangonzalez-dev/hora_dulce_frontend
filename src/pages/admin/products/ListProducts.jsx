@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom'
 
 export const ListProducts = () => {
   const {products} = useProducts()
+  
   return (
     <div className='w-full text-center text-gray-600'>
       <h1>Lista de productos</h1>
       <div className='w-full md:w-3/5 md:m-auto flex flex-col-reverse md:flex-row items-center justify-around px-2 py-2 gap-2'>
-      <div class="relative flex w-full flex-wrap items-stretch">
+      <div className="relative flex w-full flex-wrap items-stretch">
     <input
       type="search"
       className="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none "

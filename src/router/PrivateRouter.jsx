@@ -3,7 +3,6 @@ import { AddProduct, Admin, EditProduct, ListProducts } from '../pages/admin'
 import { ErrorPage } from '../pages/ErrorPage'
 
 export const PrivateRouter = () => {
-
   return (
     <div className='w-full flex flex-col justify-between'>
       <Routes>

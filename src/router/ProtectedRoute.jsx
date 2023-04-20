@@ -6,5 +6,5 @@ import { useEffect } from 'react'
 export const ProtectedRoute = ({children}) => {
   const {auth} =  useAuth()
 
-  return auth.user ? children : <Navigate to='/login' />
+  return auth.isLogged ? children : <Navigate to='/login' />
 }

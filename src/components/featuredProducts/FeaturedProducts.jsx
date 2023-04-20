@@ -49,7 +49,7 @@ export const FeaturedProducts = () => {
       >
         {
           products.data.map((product) => {
-            if(product.outstanding)return <SwiperSlide><CardFeatured image={product.image}/></SwiperSlide>
+            if(product.outstanding)return <SwiperSlide key={product._id}><CardFeatured image={product.image}/></SwiperSlide>
           })
         }
       </Swiper>

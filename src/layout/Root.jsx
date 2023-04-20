@@ -1,6 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Header, Footer } from '../components'
+import { Header } from '../components'
+import { Toaster } from 'sonner'
+
 export const Root = () => {
   return (
     <>
@@ -8,6 +10,7 @@ export const Root = () => {
           <main className='flex flex-col w-full h-full items-center justify-center'>
             <Outlet />
           </main>
+        <Toaster richColors position="bottom-center"/>
     </>
   )
 }

@@ -1,15 +1,54 @@
 import {useForm} from 'react-hook-form';
 import { ErrorMessage } from '../../components/ErrorMessage';
+import { apiAuth } from '../../config/axios';
+import { useState } from 'react';
+import { Waveform } from '@uiball/loaders'
+import { toast } from 'sonner';
+import { useAuth } from '../../hooks';
+
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export const Login = () => {
   const {register, handleSubmit, formState: {errors}} = useForm();
+  const[isFetching, setIsFetching] = useState(false);
+  const {auth, authDispatch} = useAuth();
+  const navigate = useNavigate()
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    setIsFetching(true);
+    try {
+      const response = await apiAuth.post('/login', data);
+
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+
+      authDispatch({type: 'LOGIN', payload: response.data.user})
+
+      toast.success('Bienvenido!')
+
+      navigate('/',{replace: true})
+    } catch (error) {
+      if(error.response.data.statusCode === 401 ){
+        toast.error(error.response.data.message);
+        return;
+      }
+      toast.error('Hable con el administrador!');
+    } finally {
+      setIsFetching(false);
+    }
   }
 
+  useEffect(() => {
+    if(auth.isLogged){
+      navigate('/',{replace: true})
+    }
+  }, [auth.isLogged])
+
+
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <>
+      <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <h1 className="text-center text-2xl font-bold text-primary-100 sm:text-3xl">
           Iniciar Sesión
@@ -80,18 +119,24 @@ export const Login = () => {
           <button
             type="submit"
             className="flex items-center justify-center gap-2 w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+            disabled={isFetching}
           >
             <span>
-              Acceder
+              {isFetching ? <Waveform color="#fff" size={20}/> : 'Iniciar Sesión'}
             </span>
-            <span className="material-symbols-outlined">
-              lock
-            </span>
+            {
+              !isFetching && 
+              <span className="material-symbols-outlined">
+                lock
+              </span>
+            }
           </button>
 
         </form>
       </div>
     </div>
+
+    </>
 
   )
 }

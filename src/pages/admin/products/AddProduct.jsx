@@ -1,13 +1,58 @@
 import {useForm} from 'react-hook-form';
 import { ErrorMessage } from '../../../components/ErrorMessage';
+import { apiFiles, apiProducts } from '../../../config/axios';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { Waveform } from '@uiball/loaders'
+import { useState } from 'react';
+import { useProducts } from '../../../hooks';
+import { Link } from 'react-router-dom';
+
 
 export const AddProduct = () => {
+  const navigate = useNavigate();
+  const [isFetching, setIsFetching] = useState(false);
+  const {register, handleSubmit, formState: {errors},reset} = useForm();
+  const {productsDispatch} = useProducts();
 
-  const {register, handleSubmit, formState: {errors}} = useForm();
+  const onSubmit = async (data) => {
+    try {
+      setIsFetching(true);
+      const formData = new FormData(); 
+      formData.append('image', data.image[0]);
 
-  const onSubmit = (data) => {
-    console.log(data);
+      const responseImage = await apiFiles.post('/product', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+
+      const responseProduct = await apiProducts.post('/', {
+        ...data,
+        price: Number(data.price),
+        image: responseImage.data
+      }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      productsDispatch({type: 'ADD_PRODUCT', payload: responseProduct.data})
+
+      toast.success('Producto creado con éxito!')
+
+      reset();
+
+      navigate('/admin/productos', {replace: true})
+      
+    } catch (error) {
+      toast.error('Hable con el administrador!')
+    } finally {
+      setIsFetching(false);
+    }
   }
+
 
   return (
 
@@ -97,7 +142,7 @@ export const AddProduct = () => {
               <input 
               type="checkbox" 
               className="toggle toggle-accent" 
-              {...register('featured')}
+              {...register('outstanding')}
               />
             </label>
           </div>
@@ -120,10 +165,21 @@ export const AddProduct = () => {
           <button
             type="submit"
             className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+            disabled={isFetching}
           >
-            Agregar Producto
+            <span className='w-full flex items-center justify-center'>
+              {isFetching ? <Waveform color="#fff" size={20}/> : 'Crear Producto'}
+
+            </span>
           </button>
 
+          <Link
+                to="/admin/productos"
+                className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white text-center"
+                disabled={isFetching}
+              >
+                Volver atrás
+          </Link>
         </form>
       </div>
     </div>

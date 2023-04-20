@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import { useAuth } from '../hooks';
+import { useNavigate } from 'react-router-dom';
 const links = [
     {
         name: 'DESTACADOS',
@@ -13,12 +14,19 @@ const links = [
 ]
 
 export default function Navbar() {
-
+  const navigate = useNavigate()
   const [menu, setMenu] = useState(false);
-  const {auth} = useAuth();
+  const {auth, authDispatch} = useAuth();
 
   const toggleMenu = () => {
         setMenu(!menu);
+    }
+
+  const logout = () => {
+        localStorage.removeItem('token');
+        navigate('/', {replace: true});
+        authDispatch({type: 'LOGOUT'});
+        toggleMenu();
     }
 
     const classMenuNav = menu ? 'absolute top-14 right-0 bg-white p-4 w-full' : 'hidden'
@@ -49,22 +57,33 @@ export default function Navbar() {
                                     </li>
                                 ))
                         }
-                        <li onClick={toggleMenu}>
-                            <Link
-                                className="text-gray-500 hover:text-primary-100"
-                                to='login'
-                            >
-                                INICIAR SESIÓN
-                            </Link>
-                        </li>
+
                         {
-                            auth.user && <li className="dropdown text-gray-500">
+                            (auth.isLogged && (auth.user && auth.user.role === 'admin_role')) && <li className="dropdown text-gray-500">
                                 <label tabIndex={0} className="btn m-1">ADMIN</label>
                                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                                     <li onClick={toggleMenu}><Link to='admin/productos'>Productos</Link></li>
-                                    <li onClick={toggleMenu}><Link>Cerrar sesión</Link></li>
+                                    <li >
+                                        <button
+                                        type='button'
+                                        onClick={logout}>
+                                            Cerrar sesión
+                                        </button>
+                                    </li>
                                 </ul>
-                        </li>
+                            </li>
+                            
+                        }
+                        {
+                            !auth.isLogged && 
+                            <li onClick={toggleMenu}>
+                                <Link
+                                    className="text-gray-500 hover:text-primary-100"
+                                    to='login'
+                                >
+                                    INICIAR SESIÓN
+                                </Link>
+                            </li>
                         }
                     </ul>
                 </nav>
