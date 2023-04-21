@@ -1,6 +1,6 @@
-import {Routes, Route, Navigate} from 'react-router-dom'
+import {Routes, Route} from 'react-router-dom'
 import { AddProduct, Admin, EditProduct, ListProducts } from '../pages/admin'
-import { ErrorPage } from '../pages/ErrorPage'
+import { ErrorPage } from '../pages'
 
 export const PrivateRouter = () => {
   return (

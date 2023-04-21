@@ -1,13 +1,11 @@
 import {useForm} from 'react-hook-form';
-import { ErrorMessage } from '../../components/ErrorMessage';
+import { ErrorMessage } from '../../components';
 import { apiAuth } from '../../config/axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Waveform } from '@uiball/loaders'
 import { toast } from 'sonner';
 import { useAuth } from '../../hooks';
-
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 export const Login = () => {
   const {register, handleSubmit, formState: {errors}} = useForm();

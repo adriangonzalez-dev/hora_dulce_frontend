@@ -1,9 +1,8 @@
 import {createBrowserRouter, createRoutesFromElements, Route} from 'react-router-dom'
-import { Home, Login } from '../pages'
+import { Home, Login, ErrorPage } from '../pages'
 import { Root } from '../layout/Root'
 import { PrivateRouter } from './PrivateRouter'
 import { ProtectedRoute } from './ProtectedRoute'
-import { ErrorPage } from '../pages/ErrorPage'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

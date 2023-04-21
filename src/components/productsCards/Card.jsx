@@ -15,11 +15,12 @@ export const Card = ({product}) => {
                 <h2 className='text-sm truncate'>{product.title}!</h2>
               </div>
               <div className="mt-1">
-                <button 
+                <a href={`https://wa.me/${import.meta.env.VITE_PHONE_NUMBER}?text=Hola, quiero consultar por el producto: ${product.title}`} 
+                target='_blank' rel='noreferrer'
                 className='flex items-center justify-center text-primary-100
                 gap-2 p-2 rounded duration-200 hover:bg-primary-150 hover:text-gray-600'>
                   <span >Encargar</span> <i className="fa-brands fa-whatsapp text-social-300"></i>
-                </button>
+                </a>
               </div>
           </div>
       </div>

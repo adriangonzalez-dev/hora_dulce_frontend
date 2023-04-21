@@ -1,5 +1,5 @@
 import {useForm} from 'react-hook-form';
-import { ErrorMessage } from '../../../components/ErrorMessage';
+import { ErrorMessage } from '../../../components';
 import { apiFiles, apiProducts } from '../../../config/axios';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';

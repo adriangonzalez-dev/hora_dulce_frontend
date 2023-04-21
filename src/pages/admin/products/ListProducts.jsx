@@ -1,5 +1,4 @@
-import React from 'react'
-import { ItemProduct } from '../../../components/ItemProduct'
+import { ItemProduct } from '../../../components'
 import { useProducts } from '../../../hooks'
 import { Link } from 'react-router-dom'
 

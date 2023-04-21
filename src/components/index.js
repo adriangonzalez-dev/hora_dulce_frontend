@@ -5,3 +5,7 @@ export * from './Banner';
 export * from './methods/Methods';
 export * from  './featuredProducts/FeaturedProducts';
 export * from './productsCards/ProductsCards';
+export * from './Loaders';
+export * from './ItemProduct';
+export * from './ErrorMessage';
+export * from './ButtonLink';
