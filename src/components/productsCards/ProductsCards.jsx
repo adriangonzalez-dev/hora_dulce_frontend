@@ -55,13 +55,16 @@ export const ProductsCards = () => {
                 </article>
               }
   
-            <div className='mt-4'>
+            {
+              (totalProducts < products.data.length || resultsSearch > 0) && 
+              <div className='mt-4'>
                 <button 
                 className="w-fit inline-block rounded border border-primary-100 bg-primary-100 px-6 py-2 md:px-12 md:py-3 text-sm font-medium text-white hover:bg-transparent hover:text-primary-100 focus:outline-none focus:ring active:text-primary-100"
                 onClick={()=>getMoreProducts()}>
                   Más Productos
                 </button>
             </div>
+            }
      </section>
 
   )
